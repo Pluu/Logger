@@ -18,9 +18,7 @@ CoreLogger.customEvent
 
 Sample Result
 
-```
 <img src="arts/sample.png" width="50%" />
-```
 
 ## Initialize
 
