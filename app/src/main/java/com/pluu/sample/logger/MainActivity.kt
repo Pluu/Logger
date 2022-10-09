@@ -2,7 +2,7 @@ package com.pluu.sample.logger
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.pluu.sample.corelogger.CoreLogger
+import com.pluu.logger.CoreLogger
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

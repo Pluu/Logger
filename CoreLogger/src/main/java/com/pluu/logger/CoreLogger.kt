@@ -1,4 +1,4 @@
-package com.pluu.sample.corelogger
+package com.pluu.logger
 
 import java.util.logging.Level
 import java.util.logging.Logger

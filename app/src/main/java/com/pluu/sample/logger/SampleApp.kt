@@ -1,9 +1,9 @@
 package com.pluu.sample.logger
 
 import android.app.Application
-import com.pluu.sample.corelogger.CoreLogger
-import com.pluu.sample.corelogger.CustomEvent
-import com.pluu.sample.corelogger.Firebase
+import com.pluu.logger.CoreLogger
+import com.pluu.logger.CustomEvent
+import com.pluu.logger.Firebase
 
 class SampleApp : Application() {
     override fun onCreate() {
