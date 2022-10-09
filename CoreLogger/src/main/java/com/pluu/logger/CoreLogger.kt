@@ -1,9 +1,7 @@
 package com.pluu.logger
 
-import java.util.logging.Level
-import java.util.logging.Logger
-
-private val TAG = CoreLogger::class.simpleName
+@JvmSynthetic
+internal val TAG = CoreLogger::class.simpleName
 
 object CoreLogger {
     @JvmStatic
@@ -41,42 +39,6 @@ object CoreLogger {
         }
         config.event?.let {
             CoreLoggerGlobal.register(it)
-        }
-    }
-}
-
-interface Firebase {
-    val crashlytics: Crashlytics
-
-    val analytics: Analytics
-
-    interface Crashlytics {
-        fun sendCrashlytics(throwable: Throwable)
-
-        class Debug : Crashlytics {
-            override fun sendCrashlytics(throwable: Throwable) {
-                Logger.getLogger("$TAG-Crashlytics").log(Level.SEVERE, "sendCrashlytics", throwable)
-            }
-        }
-    }
-
-    interface Analytics {
-        fun sendEvent(name: String, params: Map<String, Any>)
-
-        class Debug : Analytics {
-            override fun sendEvent(name: String, params: Map<String, Any>) {
-                Logger.getLogger("$TAG-Analytics").log(Level.INFO, "sendEvent", params)
-            }
-        }
-    }
-}
-
-interface CustomEvent {
-    fun event(event: String)
-
-    class Debug : CustomEvent {
-        override fun event(event: String) {
-            Logger.getLogger("$TAG-CustomEvent").log(Level.INFO, "event", event)
         }
     }
 }
