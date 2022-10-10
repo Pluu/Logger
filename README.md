@@ -26,12 +26,13 @@ Sample Result
 class SampleApp : Application() {
   override fun onCreate() {
     ...
-    CoreLogger.config(
-      CoreLogger.Config()
+    CoreLoggerApp.initializeApp(
+      CoreLoggerApp.Config.Builder()
         .register(/** Optional, Init Firebase.Crashlytics */)
         .register(/** Optional, Init Firebase.Analytics */)
-        .register(/** Optional, CustomEvent */)
-    )      
+        .register(/** Optional, Init CustomEvent */)
+        .build()
+    )
   }
 }
 ```
