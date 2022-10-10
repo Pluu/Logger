@@ -1,26 +1,30 @@
 package com.pluu.logger
 
 import com.pluu.logger.component.Component
+import com.pluu.logger.component.ComponentRegistrar
 import com.pluu.logger.component.ComponentRuntime
+import com.pluu.logger.component.Provider
 import com.pluu.logger.custom.CustomEvent
-import com.pluu.logger.custom.CustomEventSender
+import com.pluu.logger.custom.CustomEventRegistrar
 import com.pluu.logger.firebase.Firebase
-import com.pluu.logger.firebase.FirebaseAnalytics
-import com.pluu.logger.firebase.FirebaseCrashlytics
-
-@JvmSynthetic
-internal val TAG = CoreLoggerApp::class.simpleName
+import com.pluu.logger.firebase.analytics.AnalyticsRegistrar
+import com.pluu.logger.firebase.crashlytics.CrashlyticsRegistrar
 
 class CoreLoggerApp private constructor(
     config: Config,
     val options: CoreLoggerOptions
 ) {
-    private val componentRuntime = ComponentRuntime()
+    private val componentRuntime: ComponentRuntime
 
     init {
+        val builder = ComponentRuntime.builder()
+            .addLazyComponentRegistrars(config.registers)
+            .addComponent(Component.of(this, CoreLoggerApp::class.java))
+            .addComponent(Component.of(options, CoreLoggerOptions::class.java))
         for (component in config.component) {
-            componentRuntime.set(component.providedInterfaces, component.value)
+            builder.addComponent(component)
         }
+        componentRuntime = builder.build()
     }
 
     fun <T> get(anInterface: Class<T>): T? {
@@ -28,27 +32,34 @@ class CoreLoggerApp private constructor(
     }
 
     class Config private constructor(
+        internal val registers: List<Provider<ComponentRegistrar>>,
         internal val component: List<Component<*>>,
     ) {
         class Builder {
+            private val registers = mutableListOf<Provider<ComponentRegistrar>>()
             private val component = mutableListOf<Component<*>>()
 
             fun register(sender: Firebase.Crashlytics) = apply {
-                val wrapper = FirebaseCrashlytics.init(sender)
-                component.add(Component.of(wrapper, FirebaseCrashlytics::class.java))
+                registers.add { CrashlyticsRegistrar() }
+                addComponent(sender)
             }
 
             fun register(sender: Firebase.Analytics) = apply {
-                val wrapper = FirebaseAnalytics.init(sender)
-                component.add(Component.of(wrapper, FirebaseAnalytics::class.java))
+                registers.add { AnalyticsRegistrar() }
+                addComponent(sender)
             }
 
             fun register(sender: CustomEvent) = apply {
-                val wrapper = CustomEventSender.init(sender)
-                component.add(Component.of(wrapper, CustomEventSender::class.java))
+                registers.add { CustomEventRegistrar() }
+                addComponent(sender)
+            }
+
+            private inline fun <reified T : Any> addComponent(sender: T) {
+                component.add(Component.of(sender, T::class.java))
             }
 
             fun build(): Config = Config(
+                registers.toList(),
                 component.toList()
             )
         }

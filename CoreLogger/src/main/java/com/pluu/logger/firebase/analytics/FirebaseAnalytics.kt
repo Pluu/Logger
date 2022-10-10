@@ -1,9 +1,10 @@
-package com.pluu.logger.firebase
+package com.pluu.logger.firebase.analytics
 
 import com.pluu.logger.CoreLoggerApp
 import com.pluu.logger.common.Logger
+import com.pluu.logger.firebase.Firebase
 
-class FirebaseAnalytics private constructor(
+internal class FirebaseAnalytics private constructor(
     sender: Firebase.Analytics
 ) : Firebase.Analytics by sender {
     companion object {

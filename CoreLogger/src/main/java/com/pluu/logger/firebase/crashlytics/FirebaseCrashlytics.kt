@@ -1,9 +1,10 @@
-package com.pluu.logger.firebase
+package com.pluu.logger.firebase.crashlytics
 
 import com.pluu.logger.CoreLoggerApp
 import com.pluu.logger.common.Logger
+import com.pluu.logger.firebase.Firebase
 
-class FirebaseCrashlytics private constructor(
+internal class FirebaseCrashlytics private constructor(
     sender: Firebase.Crashlytics
 ) : Firebase.Crashlytics by sender {
     companion object {

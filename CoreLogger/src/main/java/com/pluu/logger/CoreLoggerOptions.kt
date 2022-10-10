@@ -1,15 +1,15 @@
 package com.pluu.logger
 
 class CoreLoggerOptions(
-    val isEnableCustom: Boolean,
+    val isEnableEvent: Boolean = true,
     val isDebugMode: Boolean = false
 ) {
     class Builder {
-        private var isEnableCustom = true
+        private var isEnableEvent = true
         private var isDebugMode = false
 
-        fun isEnableCustom(isEnabled: Boolean): Builder = apply {
-            this.isEnableCustom = isEnabled
+        fun isEnableEvent(isEnabled: Boolean): Builder = apply {
+            this.isEnableEvent = isEnabled
         }
 
         fun isDebugMode(isDebugMode: Boolean): Builder = apply {
@@ -18,7 +18,7 @@ class CoreLoggerOptions(
 
         fun build(): CoreLoggerOptions {
             return CoreLoggerOptions(
-                isEnableCustom = isEnableCustom,
+                isEnableEvent = isEnableEvent,
                 isDebugMode = isDebugMode,
             )
         }

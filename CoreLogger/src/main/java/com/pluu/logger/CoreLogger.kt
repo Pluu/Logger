@@ -3,8 +3,8 @@ package com.pluu.logger
 import com.pluu.logger.custom.CustomEvent
 import com.pluu.logger.custom.CustomEventSender
 import com.pluu.logger.firebase.Firebase
-import com.pluu.logger.firebase.FirebaseAnalytics
-import com.pluu.logger.firebase.FirebaseCrashlytics
+import com.pluu.logger.firebase.analytics.FirebaseAnalytics
+import com.pluu.logger.firebase.crashlytics.FirebaseCrashlytics
 
 object CoreLogger
 

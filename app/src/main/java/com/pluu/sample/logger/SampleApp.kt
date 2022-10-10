@@ -3,6 +3,7 @@ package com.pluu.sample.logger
 import android.app.Application
 import android.util.Log
 import com.pluu.logger.CoreLoggerApp
+import com.pluu.logger.CoreLoggerOptions
 import com.pluu.logger.custom.CustomEvent
 import com.pluu.logger.firebase.Firebase
 
@@ -33,7 +34,8 @@ class SampleApp : Application() {
                         }
                     }
                 )
-                .build()
+                .build(),
+            CoreLoggerOptions()
         )
     }
 }
