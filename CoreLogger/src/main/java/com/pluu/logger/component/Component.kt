@@ -18,7 +18,7 @@ internal class Component<T : Any> private constructor(
     }
 
     /** FirebaseComponent builder. */
-    internal class Builder<T : Any> constructor(
+    internal class Builder<T : Any>(
         anInterface: Class<T>,
         vararg additionalInterfaces: Class<T>
     ) {
