@@ -1,5 +1,5 @@
 [versions]
-androidStudioGradlePlugin = "8.4.0"
+androidStudioGradlePlugin = "8.5.0"
 kotlin = "1.9.23"
 appcompat = "1.6.1"
 constraintlayout = "2.1.4"
