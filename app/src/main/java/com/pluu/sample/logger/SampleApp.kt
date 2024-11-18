@@ -2,6 +2,7 @@ package com.pluu.sample.logger
 
 import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import com.pluu.logger.CoreLoggerApp
 import com.pluu.logger.CoreLoggerOptions
 import com.pluu.logger.custom.CustomEvent
@@ -17,6 +18,7 @@ class SampleApp : Application() {
                     object : Firebase.Analytics {
                         override fun sendEvent(name: String, params: Map<String, Any>) {
                             Log.d("Firebase.Analytics", "name=${name}, param=${params}")
+                            showToast("Analytics=\"name=${name}, param=${params}\"")
                         }
                     }
                 )
@@ -24,6 +26,7 @@ class SampleApp : Application() {
                     object : Firebase.Crashlytics {
                         override fun sendCrashlytics(throwable: Throwable) {
                             Log.e("Firebase.Crashlytics", "Sample", throwable)
+                            showToast("Crashlytics=${throwable.message}")
                         }
                     }
                 )
@@ -31,11 +34,16 @@ class SampleApp : Application() {
                     object : CustomEvent {
                         override fun event(event: String) {
                             Log.d("CustomEvent", "event=${event}")
+                            showToast("event=${event}")
                         }
                     }
                 )
                 .build(),
             CoreLoggerOptions()
         )
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
