@@ -1,6 +1,6 @@
 [versions]
-androidStudioGradlePlugin = "8.7.2"
-kotlin = "2.0.21"
+androidStudioGradlePlugin = "8.7.3"
+kotlin = "2.1.0"
 appcompat = "1.7.0"
 constraintlayout = "2.2.0"
 coreKtx = "1.15.0"
